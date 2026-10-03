@@ -1,0 +1,36 @@
+# SPECTER config. Copied to ~/.specter/config.toml by install.sh only if missing.
+# Everything here is receive-only. Nothing is uploaded anywhere.
+
+[display]
+units = "mph"        # "mph" or "kmh"
+theme = "night"      # "night" or "day" (the cluster also has an on-screen toggle)
+
+[server]
+host = "127.0.0.1"   # keep loopback; core refuses other binds without --allow-lan
+port = 8770
+
+[cameras]
+# GeoJSON FeatureCollection of publicly mapped cameras. Empty = ~/.specter/cameras.geojson
+# if present, otherwise the bundled SAMPLE pins (the cluster then shows the sample banner).
+path = ""
+
+[gps]
+host = "127.0.0.1"   # gpsd
+port = 2947
+
+[adsb]
+enabled = false      # read-only SBS feed from a local dump1090
+host = "127.0.0.1"
+port = 30003
+
+[ble]
+enabled = false      # needs `pip install bleak`; flags one beacon persisting over 2 km
+
+[survey]
+enabled = true
+db = "~/.specter/survey.db"      # SQLite, rows older than 7 days are rotated out
+oui_notes = ""                   # optional file: "AA:BB:CC  free-text note" per line
+source = ""                      # JSON-lines file written by a passive capture tool you run
+
+[privacy]
+retain_plates_local = false      # true keeps bridge plate text on the local bus only
