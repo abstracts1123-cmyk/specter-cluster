@@ -1,0 +1,100 @@
+/* Local fonts only: nothing is fetched from the network. Drop woff2 files in cluster/fonts/. */
+@font-face { font-family: "Share Tech Mono"; font-display: swap;
+  src: local("Share Tech Mono"), local("ShareTechMono-Regular"), url("fonts/ShareTechMono-Regular.woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-display: swap;
+  src: local("Cormorant Garamond"), local("CormorantGaramond-Regular"), url("fonts/CormorantGaramond-Regular.woff2"); }
+
+:root {
+  --field: #07080b; --panel: #10141b; --brass: #c6a15b; --phos: #b6f27a;
+  --alert: #ff3b30; --dim: #8b93a7; --ink: #b6f27a;
+  --mono: "Share Tech Mono", ui-monospace, "DejaVu Sans Mono", Menlo, monospace;
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+}
+html.day {
+  --field: #f4f1e8; --panel: #e4dfd0; --brass: #6f531a; --phos: #000;
+  --alert: #c4160b; --dim: #4a4f5c; --ink: #000;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: grid; grid-template-rows: auto 1fr auto auto; gap: 4px;
+  background: var(--field); color: var(--ink); font-family: var(--mono);
+  font-size: clamp(11px, 1.5vw, 15px); padding: 4px 8px; overflow: hidden;
+}
+h2 { margin: 0 0 6px; font-size: 1em; font-weight: 400; letter-spacing: .15em; color: var(--brass); }
+.dim { color: var(--dim); }
+button {
+  font: inherit; color: var(--brass); background: var(--panel);
+  border: 1px solid var(--brass); border-radius: 3px; padding: 2px 8px; cursor: pointer;
+}
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 26px; }
+.plate { border: 1px solid var(--brass); padding: 1px 8px; color: var(--brass); white-space: nowrap; font-size: .85em; }
+.brand { font-family: var(--serif); font-size: 1.5em; letter-spacing: .12em; }
+.sub { letter-spacing: .1em; }
+.det { margin-left: 8px; color: var(--alert); border-left: 1px solid var(--brass); padding-left: 8px; }
+.banner { color: var(--alert); border: 1px solid var(--alert); padding: 1px 8px; font-weight: bold; text-align: center; white-space: nowrap; font-size: .8em; }
+.banner[hidden] { display: none; }
+.ctl { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
+.link { color: var(--dim); }
+.demo { color: var(--brass); border: 1px solid var(--brass); padding: 0 6px; font-size: .85em; }
+
+
+main { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; min-height: 0; }
+.lug { background: var(--panel); border: 1px solid var(--brass); border-radius: 6px; padding: 8px 10px; min-width: 0; overflow: hidden; }
+.big { font-size: 1.5em; line-height: 1.1; margin-bottom: 2px; overflow-wrap: anywhere; }
+dl { margin: 10px 0 0; }
+dt { color: var(--dim); font-size: .8em; letter-spacing: .1em; margin-top: 8px; }
+dd { margin: 0; font-size: 1.2em; }
+dd.fig { font-size: 2.2em; line-height: 1; }
+
+.bezel { position: relative; height: 100%; aspect-ratio: 1; max-width: 100%; min-height: 0; }
+#dial { width: 100%; height: 100%; display: block; }
+.ring { fill: var(--panel); stroke: var(--brass); stroke-width: 3; }
+.ring.thin { fill: none; stroke-width: 1; opacity: .5; }
+.tick { stroke: var(--ink); stroke-width: 1.5; }
+.tick.minor { stroke: var(--dim); stroke-width: 1; }
+.tick-label { fill: var(--ink); font-size: 12px; text-anchor: middle; dominant-baseline: middle; }
+.track { fill: none; stroke: var(--dim); stroke-width: 6; opacity: .35; stroke-linecap: butt; }
+.arc { fill: none; stroke-width: 6; transition: stroke-dasharray .4s linear; }
+.arc.speed { stroke: var(--phos); }
+.arc.threat { stroke: var(--dim); }
+#sweep { transition: transform .6s ease-out; opacity: .6; }
+#sweep line { stroke: var(--brass); stroke-width: 1.5; }
+#sweep circle { fill: var(--brass); }
+.mini { fill: var(--dim); font-size: 10px; letter-spacing: .08em; }
+.speed-num { fill: var(--ink); font-size: 108px; }
+.unit { fill: var(--brass); font-size: 16px; letter-spacing: .2em; }
+.level { fill: var(--dim); font-size: 18px; letter-spacing: .15em; }
+#dial.advisory .level { fill: var(--brass); }
+#dial.advisory .arc.threat { stroke: var(--brass); }
+#dial.near .level, #dial.passing .level { fill: var(--alert); }
+#dial.near .arc.threat, #dial.passing .arc.threat { stroke: var(--alert); }
+#dial.near .ring, #dial.passing .ring { stroke: var(--alert); }
+#dial.passing .ring { animation: flash .5s steps(2) infinite; }
+@keyframes flash { 50% { opacity: .4; } }
+@media (prefers-reduced-motion: reduce) { #dial.passing .ring { animation: none; } #sweep { transition: none; } }
+.bezel-btn { position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); }
+#survey-view .bezel-btn { position: static; transform: none; }
+
+#stack { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+#stack li { border-left: 4px solid var(--brass); background: var(--field); padding: 3px 6px; font-size: .9em; overflow-wrap: anywhere; }
+#stack li.near, #stack li.passing { border-color: var(--alert); color: var(--alert); }
+#stack li.empty { border-color: var(--dim); color: var(--dim); }
+#stack time { color: var(--dim); margin-right: 6px; }
+#stack b { margin-right: 6px; }
+
+#survey-view { background: var(--panel); border: 1px solid var(--brass); border-radius: 6px; padding: 6px 10px; overflow: auto; min-height: 0; }
+#survey-view[hidden], #gauge-view[hidden] { display: none; }
+.sv-head { display: flex; justify-content: space-between; align-items: center; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: .9em; }
+th { text-align: left; color: var(--brass); font-weight: 400; letter-spacing: .1em; }
+th, td { padding: 1px 6px; border-bottom: 1px solid var(--dim); }
+
+.rail { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+.rail div { background: var(--panel); border: 1px solid var(--brass); border-radius: 4px; padding: 2px 6px; display: flex; flex-direction: column; min-width: 0; }
+.rail b { color: var(--brass); font-weight: 400; font-size: .75em; letter-spacing: .08em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rail span { font-size: 1.1em; }
+.rail .bad { color: var(--alert); }
+footer { color: var(--dim); font-size: .75em; text-align: center; }

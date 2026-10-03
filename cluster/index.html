@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" class="night">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SPECTER / MARKSMAN CLUSTER</title>
+  <link rel="stylesheet" href="cluster.css">
+</head>
+<body>
+  <header class="top">
+    <div class="plate" aria-label="SPECTER / MARKSMAN CLUSTER, detection only">
+      <span class="brand">SPECTER</span>
+      <span class="sub">/ MARKSMAN CLUSTER</span>
+      <span class="det">DET. ONLY</span>
+    </div>
+    <div id="banner" class="banner">SAMPLE PINS — NOT A LIVE MAP</div>
+    <div class="ctl">
+      <span id="link" class="link">LINK –</span>
+      <span id="demo" class="demo" hidden>DEMO</span>
+      <button id="theme" type="button">DAY</button>
+      <button id="sound" type="button">SOUND OFF</button>
+    </div>
+  </header>
+
+  <main id="gauge-view">
+    <aside class="lug left" aria-label="Next pin">
+      <h2>NEXT PIN</h2>
+      <div id="next-name" class="big">— NONE AHEAD —</div>
+      <div id="next-kind" class="dim">&nbsp;</div>
+      <dl>
+        <dt>BEARING</dt><dd id="next-brg">—</dd>
+        <dt>METERS</dt><dd id="next-m" class="fig">—</dd>
+        <dt>PINS AHEAD</dt><dd id="ahead">0</dd>
+      </dl>
+    </aside>
+
+    <section class="bezel" aria-label="Speed and threat distance">
+      <svg id="dial" viewBox="-180 -180 360 360" role="img" aria-label="Speedometer">
+        <circle class="ring" r="174"/>
+        <circle class="ring thin" r="94"/>
+        <g id="ticks"></g>
+        <path id="speed-track" class="track" pathLength="100"/>
+        <path id="speed-arc" class="arc speed" pathLength="100"/>
+        <path id="threat-track" class="track" pathLength="100"/>
+        <path id="threat-arc" class="arc threat" pathLength="100"/>
+        <text class="mini" x="-82" y="118">800</text>
+        <text class="mini" x="82" y="118" text-anchor="end">0 m</text>
+        <text class="mini" x="0" y="112" text-anchor="middle">THREAT DISTANCE</text>
+        <g id="sweep"><line x1="0" y1="0" x2="0" y2="-88"/><circle cx="0" cy="-88" r="3"/></g>
+        <text class="mini" x="0" y="-62" text-anchor="middle">COURSE <tspan id="course">---</tspan>°</text>
+        <text id="speed" class="speed-num" x="0" y="30" text-anchor="middle">0</text>
+        <text id="unit" class="unit" x="0" y="56" text-anchor="middle">MPH</text>
+        <text id="level" class="level" x="0" y="82" text-anchor="middle">CLEAR</text>
+      </svg>
+      <button id="to-survey" class="bezel-btn" type="button">SURVEY</button>
+    </section>
+
+    <aside class="lug right" aria-label="Alert stack">
+      <h2>ALERTS</h2>
+      <ol id="stack"><li class="empty">NO ALERTS</li></ol>
+    </aside>
+  </main>
+
+  <section id="survey-view" hidden>
+    <div class="sv-head">
+      <h2>PASSIVE SURVEY <span class="dim">· RECEIVE-ONLY · NO ASSOCIATION</span>
+        <span id="synthetic" class="demo" hidden>SYNTHETIC</span></h2>
+      <button id="to-gauge" class="bezel-btn" type="button">CLUSTER</button>
+    </div>
+    <table>
+      <thead><tr><th>TIME</th><th>BSSID</th><th>SSID</th><th>RSSI</th><th>CH</th><th>NOTE</th></tr></thead>
+      <tbody id="survey-rows"></tbody>
+    </table>
+    <table>
+      <thead><tr><th>LABEL</th><th>ICAO</th><th>CALLSIGN</th><th>ALT FT</th><th>METERS</th></tr></thead>
+      <tbody id="air-rows"></tbody>
+    </table>
+    <p id="ble-note" class="dim"></p>
+  </section>
+
+  <nav class="rail" aria-label="Status">
+    <div><b>OPTIC</b><span id="r-optic">OFF</span></div>
+    <div><b>CORTEX</b><span id="r-cortex">OFF</span></div>
+    <div><b>SURVEY</b><span id="r-survey">0 aps/min</span></div>
+    <div><b>BLE</b><span id="r-ble">OFF</span></div>
+    <div><b>AIR</b><span id="r-air">0</span></div>
+    <div><b id="fabric-label">FABRIC (PLATES DROPPED)</b><span id="r-fabric">0</span></div>
+  </nav>
+
+  <footer>
+    An alert is not proof a camera is present. No alert is not proof the road is clear.
+    BLE “TRACKER?” can be a neighbouring car or phone.
+  </footer>
+  <script src="cluster.js"></script>
+</body>
+</html>
